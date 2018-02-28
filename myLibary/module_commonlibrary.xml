@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_commonlibrary" default="compile.module.commonlibrary">
+  <dirname property="module.commonlibrary.basedir" file="${ant.file.module_commonlibrary}"/>
+  
+  <property name="module.jdk.home.commonlibrary" value="${jdk.home.android_api_23_platform}"/>
+  <property name="module.jdk.bin.commonlibrary" value="${jdk.bin.android_api_23_platform}"/>
+  <property name="module.jdk.classpath.commonlibrary" value="jdk.classpath.android_api_23_platform"/>
+  
+  <property name="compiler.args.commonlibrary" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="commonlibrary.output.dir" value="${module.commonlibrary.basedir}/build/intermediates/classes/release"/>
+  <property name="commonlibrary.testoutput.dir" value="${module.commonlibrary.basedir}/build/intermediates/classes/test/release"/>
+  
+  <path id="commonlibrary.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="commonlibrary.module.production.classpath">
+    <path refid="${module.jdk.classpath.commonlibrary}"/>
+  </path>
+  
+  <path id="commonlibrary.runtime.production.module.classpath">
+    <pathelement location="${commonlibrary.output.dir}"/>
+  </path>
+  
+  <path id="commonlibrary.module.classpath">
+    <path refid="${module.jdk.classpath.commonlibrary}"/>
+    <pathelement location="${commonlibrary.output.dir}"/>
+  </path>
+  
+  <path id="commonlibrary.runtime.module.classpath">
+    <pathelement location="${commonlibrary.testoutput.dir}"/>
+    <pathelement location="${commonlibrary.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.commonlibrary">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.commonlibrary">
+    <patternset refid="excluded.from.module.commonlibrary"/>
+  </patternset>
+  
+  <path id="commonlibrary.module.sourcepath">
+    <dirset dir="${module.commonlibrary.basedir}">
+      <include name="build/generated/source/r/release"/>
+      <include name="build/generated/source/aidl/release"/>
+      <include name="build/generated/source/buildConfig/release"/>
+      <include name="build/generated/source/rs/release"/>
+      <include name="build/generated/res/rs/release"/>
+      <include name="src/main/res"/>
+      <include name="src/main/java"/>
+    </dirset>
+  </path>
+  
+  <path id="commonlibrary.module.test.sourcepath">
+    <dirset dir="${module.commonlibrary.basedir}">
+      <include name="src/test/java"/>
+      <include name="src/androidTest/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.commonlibrary" depends="compile.module.commonlibrary.production,compile.module.commonlibrary.tests" description="Compile module commonlibrary"/>
+  
+  <target name="compile.module.commonlibrary.production" depends="register.custom.compilers" description="Compile module commonlibrary; production classes">
+    <mkdir dir="${commonlibrary.output.dir}"/>
+    <javac2 destdir="${commonlibrary.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.commonlibrary}/javac">
+      <compilerarg line="${compiler.args.commonlibrary}"/>
+      <bootclasspath refid="commonlibrary.module.bootclasspath"/>
+      <classpath refid="commonlibrary.module.production.classpath"/>
+      <src refid="commonlibrary.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.commonlibrary"/>
+    </javac2>
+    
+    <copy todir="${commonlibrary.output.dir}">
+      <fileset dir="${module.commonlibrary.basedir}/build/generated/source/r/release">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.commonlibrary.basedir}/build/generated/source/aidl/release">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.commonlibrary.basedir}/build/generated/source/buildConfig/release">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.commonlibrary.basedir}/build/generated/source/rs/release">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.commonlibrary.basedir}/build/generated/res/rs/release">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.commonlibrary.basedir}/src/main/res">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.commonlibrary.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.commonlibrary.tests" depends="register.custom.compilers,compile.module.commonlibrary.production" description="compile module commonlibrary; test classes" unless="skip.tests">
+    <mkdir dir="${commonlibrary.testoutput.dir}"/>
+    <javac2 destdir="${commonlibrary.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.commonlibrary}/javac">
+      <compilerarg line="${compiler.args.commonlibrary}"/>
+      <bootclasspath refid="commonlibrary.module.bootclasspath"/>
+      <classpath refid="commonlibrary.module.classpath"/>
+      <src refid="commonlibrary.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.commonlibrary"/>
+    </javac2>
+    
+    <copy todir="${commonlibrary.testoutput.dir}">
+      <fileset dir="${module.commonlibrary.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.commonlibrary.basedir}/src/androidTest/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.commonlibrary" description="cleanup module">
+    <delete dir="${commonlibrary.output.dir}"/>
+    <delete dir="${commonlibrary.testoutput.dir}"/>
+  </target>
+</project>

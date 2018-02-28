@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://F:\companyCode\xingxiaobao\xingxiaobao_code\Afa2.iml" filepath="F:\companyCode\xingxiaobao\xingxiaobao_code\Afa2.iml" />
+      <module fileurl="file://F:\asworkspace\app\app.iml" filepath="F:\asworkspace\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commonLibary.iml" filepath="$PROJECT_DIR$/commonLibary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commonlibrary.iml" filepath="$PROJECT_DIR$/commonlibrary.iml" />
+      <module fileurl="file://F:\asworkspace\pullRefresh\pullRefresh.iml" filepath="F:\asworkspace\pullRefresh\pullRefresh.iml" />
+      <module fileurl="file://F:\asworkspace\xingxiaobao_code.iml" filepath="F:\asworkspace\xingxiaobao_code.iml" />
+    </modules>
+  </component>
+</project>
